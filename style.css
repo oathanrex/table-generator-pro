@@ -1,0 +1,546 @@
+/* ========================================
+   Table Generator Pro - Styles
+   Version: 2.0.0
+   ======================================== */
+
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --white: #ffffff;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --white: #1a1a1a;
+    --gray-100: #2d2d2d;
+    --gray-200: #3a3a3a;
+    --gray-300: #4a4a4a;
+    --gray-800: #e0e0e0;
+    --gray-900: #f0f0f0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: var(--gray-900);
+    transition: var(--transition);
+}
+
+body.dark-mode {
+    background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+}
+
+/* Loading Screen */
+.loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.98);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+}
+
+body.dark-mode .loader-wrapper {
+    background: rgba(26, 26, 26, 0.98);
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Header */
+.app-header {
+    background: var(--white);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.app-header .tagline {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    margin: 5px 0 0 0;
+}
+
+.logo-section {
+    text-align: left;
+}
+
+.header-actions .btn {
+    margin-left: 10px;
+}
+
+/* Template Gallery */
+.template-gallery {
+    background: var(--white);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-title {
+    color: var(--gray-800);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+}
+
+.template-item {
+    width: 80px;
+    height: 60px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.template-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.template-item.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.template-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.template-header {
+    height: 30%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.template-body {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.template-row {
+    flex: 1;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.template-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 9px;
+    padding: 2px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.template-item:hover .template-name {
+    opacity: 1;
+}
+
+/* Control Cards */
+.control-card, .preview-card, .code-card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    background: var(--white);
+}
+
+.control-card:hover, .preview-card:hover, .code-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color), #5a67d8);
+    color: white;
+    border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+    padding: 12px 15px;
+    border: none;
+}
+
+.card-header h5 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+/* Form Controls */
+.form-label {
+    font-size: 0.85rem;
+    color: var(--gray-700);
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-control, .form-select {
+    font-size: 0.9rem;
+    border-radius: 5px;
+    border: 1px solid var(--gray-300);
+    transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control-color {
+    width: 100%;
+    height: 38px;
+    padding: 2px;
+}
+
+.form-range {
+    margin-top: 5px;
+}
+
+.form-check {
+    margin-bottom: 8px;
+}
+
+.form-check-label {
+    font-size: 0.9rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Buttons */
+.btn {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-sm {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+}
+
+.btn-group-sm > .btn {
+    padding: 3px 8px;
+}
+
+/* Table Preview */
+.table-preview {
+    max-height: 400px;
+    overflow: auto;
+    border: 1px solid var(--gray-300);
+    border-radius: 5px;
+    padding: 10px;
+    background: var(--gray-100);
+}
+
+.table-preview table {
+    width: 100%;
+    margin: 0;
+}
+
+.table-preview [contenteditable="true"] {
+    cursor: text;
+}
+
+.table-preview [contenteditable="true"]:hover {
+    background-color: rgba(0, 123, 255, 0.1) !important;
+    outline: 2px dashed var(--primary-color);
+}
+
+/* Code Output */
+.code-card pre {
+    margin: 0;
+    max-height: 300px;
+    overflow: auto;
+    background: #2d2d2d;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.code-card code {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #f8f8f2;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+    border-bottom: 1px solid var(--gray-300);
+    margin-bottom: 15px;
+}
+
+.nav-tabs .nav-link {
+    color: var(--gray-600);
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.nav-tabs .nav-link:hover {
+    border-bottom-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    background: none;
+}
+
+/* Toast Notifications */
+.toast {
+    min-width: 300px;
+}
+
+.toast.success {
+    background: var(--success-color);
+    color: white;
+}
+
+.toast.error {
+    background: var(--danger-color);
+    color: white;
+}
+
+.toast.info {
+    background: var(--info-color);
+    color: white;
+}
+
+/* Footer */
+.app-footer {
+    padding: 20px;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.app-footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.app-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--gray-200);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .col-lg-3 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .col-lg-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .app-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .template-grid {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    }
+    
+    .template-item {
+        width: 60px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn-group {
+        flex-direction: column;
+    }
+    
+    .header-actions {
+        margin-top: 10px;
+    }
+    
+    .logo-section {
+        text-align: center;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .control-panel,
+    .styling-panel,
+    .color-panel,
+    .code-card,
+    .app-header,
+    .app-footer,
+    .template-gallery {
+        display: none !important;
+    }
+    
+    .table-preview {
+        max-height: none !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+    
+    body {
+        background: white !important;
+    }
+}
+
+/* Utility Classes */
+.text-small {
+    font-size: 0.85rem;
+}
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+
+/* Dark Mode Specific */
+body.dark-mode .control-card,
+body.dark-mode .preview-card,
+body.dark-mode .code-card,
+body.dark-mode .template-gallery,
+body.dark-mode .app-header {
+    background: var(--gray-800);
+    color: var(--gray-100);
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background: var(--gray-700);
+    color: var(--gray-100);
+    border-color: var(--gray-600);
+}
+
+body.dark-mode .table-preview {
+    background: var(--gray-700);
+    border-color: var(--gray-600);
+}
+
+body.dark-mode .nav-tabs .nav-link {
+    color: var(--gray-400);
+}
+
+body.dark-mode .nav-tabs .nav-link.active {
+    color: var(--primary-color);
+}
