@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced HTML Table Generator Pro - Create beautiful, responsive tables with live preview, multiple templates, import/export, and code generation">
+    <meta name="keywords" content="html table generator, css table builder, responsive table creator, table styler, code generator">
+    <meta name="author" content="Table Generator Pro">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Advanced HTML Table Generator Pro">
+    <meta property="og:description" content="Professional table generator with 15+ templates, live preview, and advanced styling options">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/preview.png">
+    
+    <title>Advanced HTML Table Generator Pro - Create Beautiful Tables</title>
+    
+    <!-- External CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loader" class="loader-wrapper">
+        <div class="loader-content">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Initializing Table Generator...</p>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="container-fluid" id="mainApp" style="display: none;">
+        <!-- Header -->
+        <header class="app-header animate__animated animate__fadeInDown">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="logo-section">
+                    <h1><i class="fas fa-table"></i> Table Generator <span class="badge bg-primary">PRO</span></h1>
+                    <p class="tagline">Create Beautiful HTML Tables with Advanced Features</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline-dark" id="themeToggle" title="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="https://github.com/yourusername/table-generator-pro" target="_blank" class="btn btn-dark">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+            </div>
+            <div class="version-info text-center mt-2">
+                <span class="badge bg-success">v2.0.0</span>
+                <span class="badge bg-info">Free & Open Source</span>
+            </div>
+        </header>
+
+        <!-- Template Gallery -->
+        <div class="template-gallery mb-4 animate__animated animate__fadeIn">
+            <h3 class="gallery-title">Choose a Template</h3>
+            <div class="template-grid" id="templateGallery">
+                <!-- Templates will be generated dynamically -->
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="row main-content">
+            <!-- Left Panel - Controls -->
+            <div class="col-lg-3">
+                <div class="control-panel animate__animated animate__fadeInLeft">
+                    <!-- Quick Actions -->
+                    <div class="card control-card mb-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-bolt"></i> Quick Actions</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-sm btn-primary" onclick="app.resetAll()">
+                                    <i class="fas fa-redo"></i> Reset All
+                                </button>
+                                <button class="btn btn-sm btn-success" onclick="app.randomizeColors()">
+                                    <i class="fas fa-random"></i> Random Colors
+                                </button>
+                                <button class="btn btn-sm btn-info" onclick="app.exportSettings()">
+                                    <i class="fas fa-download"></i> Export Settings
+                                </button>
+                                <button class="btn btn-sm btn-warning" onclick="app.importSettings()">
+                                    <i class="fas fa-upload"></i> Import Settings
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table Type -->
+                    <div class="card control-card mb-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-code"></i> Table Type</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="tableType" id="typeTable" value="table" checked>
+                                <label class="btn btn-outline-primary" for="typeTable">
+                                    <i class="fas fa-table"></i> Table
+                                </label>
+                                <input type="radio" class="btn-check" name="tableType" id="typeDiv" value="div">
+                                <label class="btn btn-outline-primary" for="typeDiv">
+                                    <i class="fas fa-th"></i> Div Grid
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table Structure -->
+                    <div class="card control-card mb-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-th-large"></i> Structure</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Class Name</label>
+                                <input type="text" id="className" class="form-control" value="styled-table">
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <label class="form-label">Rows</label>
+                                    <input type="number" id="numRows" class="form-control" value="4" min="1" max="100">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Columns</label>
+                                    <input type="number" id="numCols" class="form-control" value="4" min="1" max="50">
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="form-check">
+                                    <input type="checkbox" id="hasHeader" class="form-check-input" checked>
+                                    <label class="form-check-label" for="hasHeader">Include Header</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="hasFooter" class="form-check-input">
+                                    <label class="form-check-label" for="hasFooter">Include Footer</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" id="hasCaption" class="form-check-input">
+                                    <label class="form-check-label" for="hasCaption">Include Caption</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table Dimensions -->
+                    <div class="card control-card mb-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-expand-alt"></i> Dimensions</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-check mb-2">
+                                <input type="checkbox" id="customWidth" class="form-check-input">
+                                <label class="form-check-label" for="customWidth">Custom Width</label>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="number" id="tableWidth" class="form-control" value="100" disabled>
+                                <select id="widthUnit" class="form-select" style="max-width: 80px;" disabled>
+                                    <option value="%">%</option>
+                                    <option value="px">px</option>
+                                </select>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input type="checkbox" id="customHeight" class="form-check-input">
+                                <label class="form-check-label" for="customHeight">Custom Height</label>
+                            </div>
+                            <div class="input-group">
+                                <input type="number" id="tableHeight" class="form-control" value="400" disabled>
+                                <select id="heightUnit" class="form-select" style="max-width: 80px;" disabled>
+                                    <option value="px" selected>px</option>
+                                    <option value="%">%</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle Panel - Styling Options -->
+            <div class="col-lg-3">
+                <div class="styling-panel animate__animated animate__fadeIn">
+                    <!-- General Styling -->
+                    <div class="card control-card mb-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-paint-brush"></i> General Styling</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Font -->
+                            <div class="mb-3">
+                                <label class="form-label">Font Family</label>
+                                <select id="fontFamily" class="form-select">
+                                    <option value="inherit">Default</option>
+                                    <option value="Arial, sans-serif">Arial</option>
+                                    <option value="'Times New Roman', serif">Times New Roman</option>
+                                    <option value="Georgia, serif">Georgia</option>
+                                    <option value="'Courier New', monospace">Courier New</option>
+                                    <option value="Verdana, sans-serif">Verdana</option>
+                                    <option value="Tahoma, sans-serif">Tahoma</option>
+                                    <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                                    <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Font Size -->
+                            <div class="mb-3">
+                                <label class="form-label">Font Size: <span id="fontSizeValue">14</span>px</label>
+                                <input type="range" id="fontSize" class="form-range" min="10" max="24" value="14">
+                            </div>
+
+                            <!-- Text Alignment -->
+                            <div class="mb-3">
+                                <label class="form-label">Text Alignment</label>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="textAlign" id="alignLeft" value="left">
+                                    <label class="btn btn-outline-secondary btn-sm" for="alignLeft">
+                                        <i class="fas fa-align-left"></i>
+                                    </label>
+                                    <input type="radio" class="btn-check" name="textAlign" id="alignCenter" value="center" checked>
+                                    <label class="btn btn-outline-secondary btn-sm" for="alignCenter">
+                                        <i class="fas fa-align-center"></i>
+                                    </label>
+                                    <input type="radio" class="btn-check" name="textAlign" id="alignRight" value="right">
+                                    <label class="btn btn-outline-secondary btn-sm" for="alignRight">
+                                        <i class="fas fa-align-right"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Border & Spacing -->
+                    <div class="card control-card mb-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-border-style"></i> Border & Spacing</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Border -->
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label class="form-label">Border Color</label>
+                                    <input type="color" id="borderColor" class="form-control form-control-color" value="#dee2e6">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Width: <span id="borderWidthValue">1</span>px</label>
+                                    <input type="range" id="borderWidth" class="form-range" min="0" max="5" value="1">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Border Style</label>
+                                <select id="borderStyle" class="form-select">
+                                    <option value="solid">Solid</option>
+                                    <option value="dashed">Dashed</option>
+                                    <option value="dotted">Dotted</option>
+                                    <option value="double">Double</option>
+                                    <option value="groove">Groove</option>
+                                    <option value="ridge">Ridge</option>
+                                    <option value="inset">Inset</option>
+                                    <option value="outset">Outset</option>
+                                    <option value="none">None</option>
+                                </select>
+                            </div>
+
+                            <!-- Border Radius -->
+                            <div class="mb-3">
+                                <label class="form-label">Border Radius: <span id="borderRadiusValue">0</span>px</label>
+                                <input type="range" id="borderRadius" class="form-range" min="0" max="20" value="0">
+                            </div>
+
+                            <!-- Padding -->
+                            <div class="mb-3">
+                                <label class="form-label">Cell Padding: <span id="paddingValue">8</span>px</label>
+                                <input type="range" id="cellPadding" class="form-range" min="0" max="20" value="8">
+                            </div>
+
+                            <!-- Border Spacing -->
+                            <div class="mb-3">
+                                <label class="form-label">Border Spacing: <span id="spacingValue">0</span>px</label>
+                                <input type="range" id="borderSpacing" class="form-range" min="0" max="10" value="0">
+                            </div>
+
+                            <!-- Border Collapse -->
+                            <div class="form-check">
+                                <input type="checkbox" id="borderCollapse" class="form-check-input" checked>
+                                <label class="form-check-label" for="borderCollapse">Border Collapse</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Features -->
+                    <div class="card control-card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-star"></i> Advanced Features</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input type="checkbox" id="responsive" class="form-check-input" checked>
+                                <label class="form-check-label" for="responsive">Responsive</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="hoverable" class="form-check-input">
+                                <label class="form-check-label" for="hoverable">Hover Effect</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="striped" class="form-check-input">
+                                <label class="form-check-label" for="striped">Striped Rows</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="verticalStriped" class="form-check-input">
+                                <label class="form-check-label" for="verticalStriped">Vertical Stripes</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="sortable" class="form-check-input">
+                                <label class="form-check-label" for="sortable">Sortable</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="fixedHeader" class="form-check-input">
+                                <label class="form-check-label" for="fixedHeader">Fixed Header</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="rowNumbers" class="form-check-input">
+                                <label class="form-check-label" for="rowNumbers">Row Numbers</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="searchable" class="form-check-input">
+                                <label class="form-check-label" for="searchable">Searchable</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle-Right Panel - Color Schemes -->
+            <div class="col-lg-3">
+                <div class="color-panel animate__animated animate__fadeIn">
+                    <!-- Header Colors -->
+                    <div class="card control-card mb-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-heading"></i> Header Colors</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <label class="form-label">Background</label>
+                                    <input type="color" id="headerBg" class="form-control form-control-color" value="#007bff">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Text</label>
+                                    <input type="color" id="headerText" class="form-control form-control-color" value="#ffffff">
+                                </div>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input type="checkbox" id="headerGradient" class="form-check-input">
+                                <label class="form-check-label" for="headerGradient">Gradient Background</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Body Colors -->
+                    <div class="card control-card mb-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-table"></i> Body Colors</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-2 mb-2">
+                                <div class="col-6">
+                                    <label class="form-label">Background</label>
+                                    <input type="color" id="bodyBg" class="form-control form-control-color" value="#ffffff">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Text</label>
+                                    <input type="color" id="bodyText" class="form-control form-control-color" value="#212529">
+                                </div>
+                            </div>
+                            <div class="row g-2 mb-2">
+                                <div class="col-6">
+                                    <label class="form-label">Stripe Color</label>
+                                    <input type="color" id="stripeColor" class="form-control form-control-color" value="#f8f9fa">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Hover Color</label>
+                                    <input type="color" id="hoverColor" class="form-control form-control-color" value="#e9ecef">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Colors -->
+                    <div class="card control-card mb-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-window-minimize"></i> Footer Colors</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <label class="form-label">Background</label>
+                                    <input type="color" id="footerBg" class="form-control form-control-color" value="#f8f9fa">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Text</label>
+                                    <input type="color" id="footerText" class="form-control form-control-color" value="#6c757d">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Management -->
+                    <div class="card control-card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-database"></i> Data Management</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-sm btn-outline-primary" onclick="app.addSampleData()">
+                                    <i class="fas fa-database"></i> Add Sample Data
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" onclick="app.importCSV()">
+                                    <i class="fas fa-file-csv"></i> Import CSV
+                                </button>
+                                <button class="btn btn-sm btn-outline-info" onclick="app.importJSON()">
+                                    <i class="fas fa-file-code"></i> Import JSON
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning" onclick="app.exportCSV()">
+                                    <i class="fas fa-download"></i> Export CSV
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="app.exportJSON()">
+                                    <i class="fas fa-download"></i> Export JSON
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Preview & Code -->
+            <div class="col-lg-3">
+                <div class="preview-panel animate__animated animate__fadeInRight">
+                    <!-- Live Preview -->
+                    <div class="card preview-card mb-3">
+                        <div class="card-header">
+                            <h5><i class="fas fa-eye"></i> Live Preview</h5>
+                            <div class="btn-group btn-group-sm float-end">
+                                <button class="btn btn-sm btn-outline-light" onclick="app.toggleEditMode()">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-light" onclick="app.refreshPreview()">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="searchBox" class="mb-2" style="display: none;">
+                                <input type="text" id="tableSearch" class="form-control" placeholder="Search table...">
+                            </div>
+                            <div id="tablePreview" class="table-preview">
+                                <!-- Live preview will be generated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code Output -->
+                    <div class="card code-card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-code"></i> Generated Code</h5>
+                            <div class="btn-group btn-group-sm float-end">
+                                <button class="btn btn-sm btn-outline-light" onclick="app.copyCode('html')">
+                                    <i class="fas fa-copy"></i> HTML
+                                </button>
+                                <button class="btn btn-sm btn-outline-light" onclick="app.copyCode('css')">
+                                    <i class="fas fa-copy"></i> CSS
+                                </button>
+                                <button class="btn btn-sm btn-outline-light" onclick="app.copyCode('all')">
+                                    <i class="fas fa-copy"></i> All
+                                </button>
+                                <button class="btn btn-sm btn-outline-light" onclick="app.downloadCode()">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-tabs nav-sm" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#htmlTab">HTML</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#cssTab">CSS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#fullTab">Full Code</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="htmlTab">
+                                    <pre><code id="htmlCode" class="language-html"></code></pre>
+                                </div>
+                                <div class="tab-pane fade" id="cssTab">
+                                    <pre><code id="cssCode" class="language-css"></code></pre>
+                                </div>
+                                <div class="tab-pane fade" id="fullTab">
+                                    <pre><code id="fullCode" class="language-html"></code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer text-center mt-5">
+            <p>&copy; 2024 Table Generator Pro | Made with <i class="fas fa-heart text-danger"></i> | 
+                <a href="https://github.com/yourusername/table-generator-pro">View on GitHub</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Hidden file input -->
+    <input type="file" id="fileInput" style="display: none;" accept=".csv,.json,.txt">
+    
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
